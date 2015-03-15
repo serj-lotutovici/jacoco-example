@@ -1,0 +1,14 @@
+# MacOS junck
+.DS_Store
+
+# Local stuff
+/local.properties
+
+# Idea files
+/.idea/*
+*.iml
+
+# Gradle build stuff
+.gradle
+/build
+*/build
