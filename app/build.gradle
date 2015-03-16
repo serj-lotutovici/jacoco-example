@@ -25,8 +25,5 @@ dependencies {
     compile project(':module-01')
     compile project(':module-02')
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:2.4'
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile 'com.google.android:android:4.1.1.4'
+    testCompile project(':test-helper')
 }

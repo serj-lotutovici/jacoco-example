@@ -1,0 +1,14 @@
+/**
+ * To be used as a central dependency and helper class provider.
+ * <pre>
+ *     testCompile project(':test-helper')
+ * </pre>
+ */
+apply plugin: 'java'
+
+dependencies {
+    compile 'junit:junit:4.12'
+    compile 'org.robolectric:robolectric:2.4'
+    compile 'org.mockito:mockito-all:1.10.19'
+    compile 'com.google.android:android:4.1.1.4'
+}
