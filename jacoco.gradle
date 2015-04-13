@@ -10,32 +10,40 @@ jacoco {
     version = '0.7.2.201409121644'
 }
 
+def coverageSourceDirs = [
+        '../app/scr/main/java',
+        '../module-01/main/java',
+        '../module-02/main/java',
+        '../module-core/main/java'
+]
+
 /**
  * Task that generates the JaCoCo report
  */
 task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports"
+    classDirectories  = fileTree(dir: '../app/build/intermediates/classes/debug', exclude: '**/R*.class')
+    classDirectories += fileTree(dir: '../module-01/build/intermediates/classes/debug', exclude: '**/R*.class')
+    classDirectories += fileTree(dir: '../module-02/build/intermediates/classes/debug', exclude: '**/R*.class')
+    classDirectories += fileTree(dir: '../module-core/build/intermediates/classes/debug', exclude: '**/R*.class')
 
-    classDirectories = fileTree(
-            dir: "${buildDir}/intermediates/classes/debug",
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']
-    )
+    jacocoClasspath = configurations.jacocoReport
 
-    sourceDirectories = files("${buildDir.parent}/src/main/java")
-    additionalSourceDirs = files([
-            "${buildDir}/generated/source/buildConfig/debug",
-            "${buildDir}/generated/source/r/debug"
-    ])
-    executionData = files("${buildDir}/jacoco/testDebug.exec")
+    // Add execution data from all sub-projects
+    executionData fileTree(project.projectDir).include("build/jacoco/*.exec")
+    // Add source classes from all sub-projects
+    sourceDirectories = files(coverageSourceDirs)
 
     reports {
-        xml.enabled = true
-        html.enabled = true
+        html {
+            //noinspection GroovyAssignabilityCheck
+            enabled true
+            destination "build/reports/jacoco/test"
+        }
+        xml {
+            //noinspection GroovyAssignabilityCheck
+            enabled true
+            destination "build/reports/jacoco/test/jacocoTestReport.xml"
+        }
     }
 }
 
