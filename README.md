@@ -12,7 +12,7 @@ In the projects root directory just run:
 ./gradlew jacocoFullReport
 ```
 
-After the task executes the resulting report can be found in `${project.root}/build/reports/jacoco/jacocoFullReport/`
+After the task executes the resulting report can be found in `${project.root}/build/reports/jacoco/full/`
 
 License
 -------

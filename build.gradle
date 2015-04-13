@@ -100,8 +100,14 @@ task jacocoFullReport(type: JacocoReport, group: 'Coverage reports') {
     executionData = files(projects.jacocoReport.executionData)
 
     reports {
-        html.enabled = true
-        xml.enabled = true
+        html {
+            enabled true
+            destination 'build/reports/jacoco/full'
+        }
+        xml {
+            enabled true
+            destination 'build/reports/jacoco/full/jacocoFullReport.xml'
+        }
     }
 
     doFirst {
@@ -127,7 +133,7 @@ FileCollection generateSourceFiles(Collection projects) {
  *  Generate a FileCollection of all projects class files
  */
 FileCollection generateClassDirs(Collection projects) {
-    def tree = fileTree( 'directory does not exists' ) // I know it's ugly :)
+    def tree = fileTree('directory does not exists') // I know it's ugly :)
 
     projects.each { prj ->
         tree += fileTree(
