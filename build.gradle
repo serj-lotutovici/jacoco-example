@@ -79,7 +79,7 @@ jacoco {
 /**
  *  Root task that generates an aggregated Jacoco test coverage report for all sub-projects
  */
-task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+task jacocoFullReport(type: JacocoReport, group: 'Coverage reports') {
     group = 'Reporting'
     description = 'Generates an aggregate report from all subprojects'
 
