@@ -3,7 +3,9 @@ apply plugin: 'jacoco'
 
 // Set report configuration
 configurations {
-    jacocoReport
+    jacocoReport {
+        description 'JARs required for doing our own JacocoReport tasks'
+    }
 }
 
 jacoco {
@@ -21,7 +23,7 @@ def coverageSourceDirs = [
  * Task that generates the JaCoCo report
  */
 task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
-    classDirectories  = fileTree(dir: '../app/build/intermediates/classes/debug', exclude: '**/R*.class')
+    classDirectories = fileTree(dir: '../app/build/intermediates/classes/debug', exclude: '**/R*.class')
     classDirectories += fileTree(dir: '../module-01/build/intermediates/classes/debug', exclude: '**/R*.class')
     classDirectories += fileTree(dir: '../module-02/build/intermediates/classes/debug', exclude: '**/R*.class')
     classDirectories += fileTree(dir: '../module-core/build/intermediates/classes/debug', exclude: '**/R*.class')
@@ -29,7 +31,12 @@ task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
     jacocoClasspath = configurations.jacocoReport
 
     // Add execution data from all sub-projects
-    executionData fileTree(project.projectDir).include("build/jacoco/*.exec")
+    executionData fileTree(project.projectDir)
+            .include('../module-01/*.exec')
+            .include('../module-02/*.exec')
+            .include('../module-core/*.exec')
+            .include('build/jacoco/*.exec')
+
     // Add source classes from all sub-projects
     sourceDirectories = files(coverageSourceDirs)
 
@@ -37,12 +44,12 @@ task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
         html {
             //noinspection GroovyAssignabilityCheck
             enabled true
-            destination "build/reports/jacoco/test"
+            destination 'build/reports/jacoco/test'
         }
         xml {
             //noinspection GroovyAssignabilityCheck
             enabled true
-            destination "build/reports/jacoco/test/jacocoTestReport.xml"
+            destination 'build/reports/jacoco/test/jacocoTestReport.xml'
         }
     }
 }
