@@ -12,3 +12,7 @@
 .gradle
 /build
 */build
+
+# JaCoCo stuff
+*.exec
+*.ec

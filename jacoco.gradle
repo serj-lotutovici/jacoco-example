@@ -1,0 +1,44 @@
+// Apply JaCoCo plugin
+apply plugin: 'jacoco'
+
+// Set report configuration
+configurations {
+    jacocoReport
+}
+
+jacoco {
+    version = '0.7.2.201409121644'
+}
+
+/**
+ * Task that generates the JaCoCo report
+ */
+task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories = fileTree(
+            dir: "${buildDir}/intermediates/classes/debug",
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$ViewInjector*.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*']
+    )
+
+    sourceDirectories = files("${buildDir.parent}/src/main/java")
+    additionalSourceDirs = files([
+            "${buildDir}/generated/source/buildConfig/debug",
+            "${buildDir}/generated/source/r/debug"
+    ])
+    executionData = files("${buildDir}/jacoco/testDebug.exec")
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+dependencies {
+    jacocoReport 'org.jacoco:org.jacoco.ant:0.7.2.201409121644'
+}
