@@ -18,6 +18,7 @@ allprojects {
         jcenter()
     }
 
+    /** To avoid writing this in every android module */
     project.ext {
         compileSdkVersion = 22
         buildToolsVersion = '22.0.1'
