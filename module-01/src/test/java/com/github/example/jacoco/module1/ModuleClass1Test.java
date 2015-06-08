@@ -22,7 +22,6 @@
 package com.github.example.jacoco.module1;
 
 import com.test.TestConfig;
-import com.test.shadows.InternalSystemPropertiesShadow;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,9 +35,8 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(
-        emulateSdk = TestConfig.EMULATE_SDK,
-        manifest = Config.NONE,
-        shadows = InternalSystemPropertiesShadow.class
+        sdk = TestConfig.EMULATE_SDK,
+        constants = BuildConfig.class
 )
 public class ModuleClass1Test {
 
