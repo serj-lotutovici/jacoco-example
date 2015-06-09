@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.3'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 
@@ -16,6 +16,17 @@ allprojects {
 
     repositories {
         jcenter()
+    }
+
+    /** To avoid writing this in every android module */
+    project.ext {
+        compileSdkVersion = 22
+        buildToolsVersion = '22.0.1'
+        minSdkVersion = 14
+        targetSdkVersion = 22
+
+        versionCode = 2
+        versionName = '1.0.1'
     }
 
 }
@@ -136,6 +147,7 @@ FileCollection generateClassDirs(Collection projects) {
     def tree = fileTree('directory does not exists') // I know it's ugly :)
 
     projects.each { prj ->
+        //noinspection GrReassignedInClosureLocalVar
         tree += fileTree(
                 dir: "${prj.name}/build/intermediates/classes/debug",
                 excludes: [
