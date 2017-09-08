@@ -1,3 +1,6 @@
+# DEPRECATED
+Use https://github.com/vanniktech/gradle-android-junit-jacoco-plugin
+
 Jacoco Example for Multi-Module projects
 ========================================
 
